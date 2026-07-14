@@ -1,0 +1,319 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type VerifyCodeResult = 
+ variant {
+   err: VerifyCodeError;
+   ok: SessionToken;
+ };
+type VerifyCodeError = 
+ variant {
+   expired;
+   noPendingCode;
+   tooManyAttempts;
+   wrongCode;
+ };
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserId = text;
+type User = 
+ record {
+   createdAt: Timestamp;
+   email: Email;
+   lastLoginAt: Timestamp;
+ };
+type Timestamp = nat;
+type StepEntry = 
+ record {
+   calories: Calories;
+   date: Date;
+   steps: nat;
+   updatedAt: Timestamp;
+   userId: UserId;
+ };
+type Sex = 
+ variant {
+   female;
+   male;
+ };
+type SessionTtl = nat;
+type SessionToken = text;
+type Result__1 = 
+ variant {
+   err: Error__1;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type RequestCodeResult = 
+ variant {
+   err: RequestCodeError;
+   ok;
+ };
+type RequestCodeError = 
+ variant {
+   invalidEmail;
+   rateLimited;
+   sendFailed: text;
+ };
+type Profile = 
+ record {
+   activityLevel: ActivityLevel;
+   age: nat;
+   bmr: nat;
+   goal: Goal;
+   height: nat;
+   sex: Sex;
+   weight: nat;
+ };
+type NetBalancePoint = 
+ record {
+   date: Date;
+   netBalance: int;
+ };
+type MealType = 
+ variant {
+   breakfast;
+   dinner;
+   lunch;
+   snack;
+ };
+type MealInput = 
+ record {
+   date: Date;
+   description: text;
+   mealType: MealType;
+   photo: opt blob;
+   portionSize: opt text;
+ };
+type Meal = 
+ record {
+   calories: Calories;
+   date: Date;
+   description: text;
+   id: nat;
+   loggedAt: Timestamp;
+   macros: MacroBreakdown;
+   mealType: MealType;
+   photo: opt blob;
+   portionSize: opt text;
+   userId: UserId;
+ };
+type MacroBreakdown = 
+ record {
+   carbs: nat;
+   fat: nat;
+   protein: nat;
+ };
+type Intensity = 
+ variant {
+   light;
+   moderate;
+   vigorous;
+ };
+type Goal = 
+ variant {
+   gain;
+   lose;
+   maintain;
+ };
+type ExerciseInput = 
+ record {
+   date: Date;
+   distance: opt nat;
+   durationMin: nat;
+   exerciseType: text;
+   intensity: opt Intensity;
+   photo: opt blob;
+ };
+type Exercise = 
+ record {
+   caloriesBurned: Calories;
+   date: Date;
+   distance: opt nat;
+   durationMin: nat;
+   exerciseType: text;
+   id: nat;
+   intensity: opt Intensity;
+   loggedAt: Timestamp;
+   photo: opt blob;
+   userId: UserId;
+ };
+type EstimateResult__1 = 
+ variant {
+   err: Error;
+   ok: record {caloriesBurned: Calories;};
+ };
+type EstimateResult = 
+ variant {
+   err: Error;
+   ok: record {
+         calories: Calories;
+         macros: MacroBreakdown;
+       };
+ };
+type Error__1 = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type Error = 
+ variant {
+   internal: text;
+   invalidInput: text;
+   notFound;
+   rateLimited;
+   unauthorized;
+ };
+type Email = text;
+type Date = text;
+type DailySummary = 
+ record {
+   bmr: Calories;
+   caloriesIn: Calories;
+   caloriesOut: Calories;
+   date: Date;
+   exerciseCalories: Calories;
+   macroBreakdown: MacroBreakdown;
+   netBalance: int;
+   stepCalories: Calories;
+   steps: nat;
+ };
+type CodeTtl = nat;
+type Code = text;
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type Calories = nat;
+type ActivityLevel = 
+ variant {
+   extraActive;
+   lightlyActive;
+   moderatelyActive;
+   sedentary;
+   veryActive;
+ };
+service : {
+  __accessControlState: () -> (reserved) query;
+  __codeTtl: () -> (CodeTtl) query;
+  __exercises: () -> (reserved) query;
+  __exercisesByUserDate: () -> (reserved) query;
+  __logMealApiKey: () -> (reserved) query;
+  __maxAttempts: () -> (nat) query;
+  __meals: () -> (reserved) query;
+  __mealsByUserDate: () -> (reserved) query;
+  __nextExerciseId: () -> (reserved) query;
+  __nextMealId: () -> (reserved) query;
+  __pendingCodes: () -> (reserved) query;
+  __profiles: () -> (reserved) query;
+  __sessionTtl: () -> (SessionTtl) query;
+  __sessions: () -> (reserved) query;
+  __stepsByUserDate: () -> (reserved) query;
+  __users: () -> (reserved) query;
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  addExercise: (sessionToken: SessionToken, userId: UserId, input:
+   ExerciseInput, caloriesBurned: Calories) -> (Exercise);
+  addMeal: (sessionToken: SessionToken, userId: UserId, input: MealInput,
+   calories: Calories, macros: MacroBreakdown) -> (Meal);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  deleteExercise: (sessionToken: SessionToken, exerciseId: nat) -> (bool);
+  deleteMeal: (sessionToken: SessionToken, mealId: nat) -> (bool);
+  estimateExercise: (sessionToken: SessionToken, userId: UserId, input:
+   ExerciseInput) -> (EstimateResult__1);
+  estimateMeal: (sessionToken: SessionToken, userId: UserId, input:
+   MealInput) -> (EstimateResult);
+  execute: (qJson: text) -> (Result) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getDailySummary: (sessionToken: SessionToken, userId: UserId, date:
+   Date) -> (DailySummary) query;
+  getExercise: (sessionToken: SessionToken, exerciseId: nat) ->
+   (opt Exercise) query;
+  getHistoryRange: (sessionToken: SessionToken, userId: UserId, startDate:
+   Date, endDate: Date) -> (vec DailySummary) query;
+  getMeal: (sessionToken: SessionToken, mealId: nat) -> (opt Meal) query;
+  getNetBalanceTrend: (sessionToken: SessionToken, userId: UserId, days:
+   nat) -> (vec NetBalancePoint) query;
+  getProfile: (sessionToken: SessionToken, userId: UserId) ->
+   (opt Profile) query;
+  getSteps: (sessionToken: SessionToken, userId: UserId, date: Date) ->
+   (opt StepEntry) query;
+  getTodaySteps: (sessionToken: SessionToken, userId: UserId) ->
+   (opt StepEntry) query;
+  getUser: (email: Email) -> (opt User) query;
+  isCallerAdmin: () -> (bool) query;
+  isOnboarded: (sessionToken: SessionToken, userId: UserId) -> (bool) query;
+  listExercises: (sessionToken: SessionToken, userId: UserId, date: Date) ->
+   (vec Exercise) query;
+  listMeals: (sessionToken: SessionToken, userId: UserId, date: Date) ->
+   (vec Meal) query;
+  logout: (token: SessionToken) -> ();
+  requestCode: (email: Email) -> (RequestCodeResult);
+  saveProfile: (sessionToken: SessionToken, userId: UserId, profile:
+   Profile) -> (Profile);
+  schema: () -> (text) query;
+  setLogMealApiKey: (key: text) -> ();
+  setSteps: (sessionToken: SessionToken, userId: UserId, date: Date,
+   stepCount: nat) -> (StepEntry);
+  updateExercise: (sessionToken: SessionToken, exerciseId: nat, input:
+   ExerciseInput, caloriesBurned: Calories) -> (opt Exercise);
+  updateMeal: (sessionToken: SessionToken, mealId: nat, input: MealInput,
+   calories: Calories, macros: MacroBreakdown) -> (opt Meal);
+  validateSession: (token: SessionToken) -> (opt Email) query;
+  verifyCode: (email: Email, code: Code) -> (VerifyCodeResult);
+}

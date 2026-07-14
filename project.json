@@ -1,0 +1,19 @@
+{
+  "overview": "Mobile-first nutrition and calorie-balance tracker with email OTP login, meal and exercise logging, and a home dashboard.",
+  "features": [
+    "Log meals, exercises, and steps with calorie balance tracking",
+    "Email OTP login with remember me option",
+    "Light, dark, and system theme picker",
+    "Home dashboard with daily summary and trends",
+    "History view of past days",
+    "Profile and settings management"
+  ],
+  "category": "productivity",
+  "tags": [
+    "nutrition",
+    "health",
+    "calorie-tracker",
+    "mobile-first"
+  ],
+  "last_updated": "2026-07-09T06:26:16.307Z"
+}

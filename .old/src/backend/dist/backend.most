@@ -1,0 +1,253 @@
+// Version: 4.0.0
+type AccessControlState__475823496 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__246123559<Principal, UserRole__452940788>
+  };
+type ActivityLevel__240582428 =
+  {#extraActive; #lightlyActive; #moderatelyActive; #sedentary; #veryActive};
+type ActivityLevel__921687257 =
+  {#extraActive; #lightlyActive; #moderatelyActive; #sedentary; #veryActive};
+type Calories__642788919 = Calories__693723829;
+type Calories__656791076 = Calories__693723829;
+type Calories__693723829 = Nat;
+type Calories__918120291 = Calories__693723829;
+type Code__126507375 = Text;
+type Data__552063367<K, V> = {var count : Nat__93962160; kvs : [var ?(K, V)]};
+type Date__1017351040 = Text;
+type Date__177887528 = Date__1017351040;
+type Date__431941573 = Date__1017351040;
+type Date__844367011 = Date__1017351040;
+type Email__499858347 = Text;
+type Exercise__147623795 =
+  {
+    caloriesBurned : Nat;
+    date : Text;
+    distance : ?Nat;
+    durationMin : Nat;
+    exerciseType : Text;
+    id : Nat;
+    intensity : ?Intensity__882427514;
+    loggedAt : Nat;
+    photo : ?Blob;
+    userId : Text
+  };
+type Exercise__676377649 =
+  {
+    caloriesBurned : Calories__656791076;
+    date : Date__844367011;
+    distance : ?Nat;
+    durationMin : Nat;
+    exerciseType : Text;
+    id : Nat;
+    intensity : ?Intensity__860854960;
+    loggedAt : Timestamp__91156807;
+    photo : ?Blob;
+    userId : UserId__508493892
+  };
+type Goal__958190818 = {#gain; #lose; #maintain};
+type Goal__95931581 = {#gain; #lose; #maintain};
+type Intensity__860854960 = {#light; #moderate; #vigorous};
+type Intensity__882427514 = {#light; #moderate; #vigorous};
+type Internal__455405067<K, V> =
+  {children : [var ?Node__279997185<K, V>]; data : Data__552063367<K, V>};
+type Leaf__114713147<K, V> = {data : Data__552063367<K, V>};
+type MacroBreakdown__203348681 = MacroBreakdown__918689762;
+type MacroBreakdown__806688184 = {carbs : Nat; fat : Nat; protein : Nat};
+type MacroBreakdown__918689762 = {carbs : Nat; fat : Nat; protein : Nat};
+type Map__190625089<K, V> = Map__719753394<K, V>;
+type Map__246123559<K, V> = Map__190625089<K, V>;
+type Map__719753394<K, V> =
+  {var root : Node__279997185<K, V>; var size : Nat__93962160};
+type MealType__169271574 = {#breakfast; #dinner; #lunch; #snack};
+type MealType__463858064 = {#breakfast; #dinner; #lunch; #snack};
+type MealType__555150721 = MealType__463858064;
+type Meal__513999871 =
+  {
+    calories : Calories__918120291;
+    date : Date__177887528;
+    description : Text;
+    id : Nat;
+    loggedAt : Timestamp__1062403283;
+    macros : MacroBreakdown__203348681;
+    mealType : MealType__555150721;
+    photo : ?Blob;
+    portionSize : ?Text;
+    userId : UserId__583580040
+  };
+type Meal__955758091 =
+  {
+    calories : Nat;
+    date : Text;
+    description : Text;
+    id : Nat;
+    loggedAt : Nat;
+    macros : MacroBreakdown__806688184;
+    mealType : MealType__169271574;
+    photo : ?Blob;
+    portionSize : ?Text;
+    userId : Text
+  };
+type Nat__920180692 = Nat;
+type Nat__93962160 = Nat__920180692;
+type NewActor__627399746 =
+  {
+    accessControlState : AccessControlState__475823496;
+    codeTtl : Nat;
+    exercises : Map__246123559<Nat, Exercise__147623795>;
+    exercisesByUserDate : Map__246123559<(Text, Text), [Nat]>;
+    logMealApiKey : {var value : Text};
+    maxAttempts : Nat;
+    meals : Map__246123559<Nat, Meal__955758091>;
+    mealsByUserDate : Map__246123559<(Text, Text), [Nat]>;
+    nextExerciseId : {var value : Nat};
+    nextMealId : {var value : Nat};
+    pendingCodes : Map__246123559<Text, PendingCode__452101582>;
+    profiles : Map__246123559<Text, Profile__666272640>;
+    sessionTtl : Nat;
+    sessions : Map__246123559<Text, Session__1029145120>;
+    stepsByUserDate : Map__246123559<(Text, Text), StepEntry__222180775>;
+    users : Map__246123559<Text, User__448417033>
+  };
+type Node__279997185<K, V> =
+  {#internal : Internal__455405067<K, V>; #leaf : Leaf__114713147<K, V>};
+type OldActor__370113863 = {};
+type PendingCode__392999127 =
+  {
+    attempts : Nat;
+    code : Code__126507375;
+    createdAt : Timestamp__608627923;
+    email : Email__499858347;
+    expiresAt : Timestamp__608627923
+  };
+type PendingCode__452101582 =
+  {
+    attempts : Nat;
+    code : Text;
+    createdAt : Nat;
+    email : Text;
+    expiresAt : Nat
+  };
+type Profile__666272640 =
+  {
+    activityLevel : ActivityLevel__240582428;
+    age : Nat;
+    bmr : Nat;
+    goal : Goal__95931581;
+    height : Nat;
+    sex : Sex__457503725;
+    weight : Nat
+  };
+type Profile__901378260 =
+  {
+    activityLevel : ActivityLevel__921687257;
+    age : Nat;
+    bmr : Nat;
+    goal : Goal__958190818;
+    height : Nat;
+    sex : Sex__699448499;
+    weight : Nat
+  };
+type SessionToken__731358949 = Text;
+type Session__1029145120 =
+  {createdAt : Nat; email : Text; expiresAt : Nat; token : Text};
+type Session__71599859 =
+  {
+    createdAt : Timestamp__608627923;
+    email : Email__499858347;
+    expiresAt : Timestamp__608627923;
+    token : SessionToken__731358949
+  };
+type Sex__457503725 = {#female; #male};
+type Sex__699448499 = {#female; #male};
+type StepEntry__222180775 =
+  {calories : Nat; date : Text; steps : Nat; updatedAt : Nat; userId : Text};
+type StepEntry__985619758 =
+  {
+    calories : Calories__642788919;
+    date : Date__431941573;
+    steps : Nat;
+    updatedAt : Timestamp__389831116;
+    userId : UserId__150949900
+  };
+type Timestamp__1062403283 = Timestamp__301639476;
+type Timestamp__301639476 = Nat;
+type Timestamp__389831116 = Timestamp__301639476;
+type Timestamp__608627923 = Nat;
+type Timestamp__91156807 = Timestamp__301639476;
+type UserId__150949900 = UserId__158757552;
+type UserId__158757552 = Text;
+type UserId__508493892 = UserId__158757552;
+type UserId__583580040 = UserId__158757552;
+type UserRole__452940788 = {#admin; #guest; #user};
+type UserRole__686137147 = {#admin; #guest; #user};
+type User__448417033 = {createdAt : Nat; email : Text; lastLoginAt : Nat};
+type User__455962502 =
+  {
+    createdAt : Timestamp__608627923;
+    email : Email__499858347;
+    lastLoginAt : Timestamp__608627923
+  };
+{
+  "20260709_050000" : (_old : OldActor__370113863) -> NewActor__627399746
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__246123559<Principal, UserRole__686137147>
+    };
+  stable codeTtl : Nat;
+  stable exercises :
+    {
+      var root : Node__279997185<Nat, Exercise__676377649>;
+      var size : Nat__93962160
+    };
+  stable exercisesByUserDate :
+    {
+      var root : Node__279997185<(UserId__158757552, Date__1017351040), [Nat]>;
+      var size : Nat__93962160
+    };
+  stable logMealApiKey : {var value : Text};
+  stable maxAttempts : Nat;
+  stable meals :
+    {
+      var root : Node__279997185<Nat, Meal__513999871>;
+      var size : Nat__93962160
+    };
+  stable mealsByUserDate :
+    {
+      var root : Node__279997185<(UserId__158757552, Date__1017351040), [Nat]>;
+      var size : Nat__93962160
+    };
+  stable nextExerciseId : {var value : Nat};
+  stable nextMealId : {var value : Nat};
+  stable pendingCodes :
+    {
+      var root : Node__279997185<Email__499858347, PendingCode__392999127>;
+      var size : Nat__93962160
+    };
+  stable profiles :
+    {
+      var root : Node__279997185<UserId__158757552, Profile__901378260>;
+      var size : Nat__93962160
+    };
+  stable sessionTtl : Nat;
+  stable sessions :
+    {
+      var root : Node__279997185<SessionToken__731358949, Session__71599859>;
+      var size : Nat__93962160
+    };
+  stable stepsByUserDate :
+    {
+      var root :
+        Node__279997185<(UserId__158757552, Date__1017351040),
+                         StepEntry__985619758>;
+      var size : Nat__93962160
+    };
+  stable users :
+    {
+      var root : Node__279997185<Email__499858347, User__455962502>;
+      var size : Nat__93962160
+    }
+};
